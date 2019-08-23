@@ -14,7 +14,7 @@ const renderApp = () => {
             {visibility ? 'Hide Details' : 'Show Details'}
         </button>
         {
-            visibility && <div><p>I'm not your guy buddy</p></div>
+            visibility && <div><p>I'm not your guy, buddy!</p></div>
         }
         </div>
     ); 
