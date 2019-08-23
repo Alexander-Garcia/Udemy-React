@@ -1,93 +1,94 @@
 'use strict';
 
-console.log('App.js is running');
-var appRoot = document.getElementById('app');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var app = {
-    title: 'Indecision App',
-    subtitle: 'Hand of computer',
-    options: []
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var onFormSubmit = function onFormSubmit(e) {
-    //prevents page refresh and adding value to url
-    e.preventDefault();
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    var option = e.target.elements.option.value;
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-    if (option) {
-        app.options.push(option);
-        e.target.elements.option.value = '';
-        renderApp();
+// VisibilityToggle - render, constructor, handleToggleVisibility
+// visibility state - false -> toggles between true and false
+var Visibility = function (_React$Component) {
+    _inherits(Visibility, _React$Component);
+
+    function Visibility(props) {
+        _classCallCheck(this, Visibility);
+
+        var _this = _possibleConstructorReturn(this, (Visibility.__proto__ || Object.getPrototypeOf(Visibility)).call(this, props));
+
+        _this.toggle = _this.toggle.bind(_this);
+        _this.state = {
+            messageVisible: false
+        };
+        return _this;
     }
-};
-var clearArray = function clearArray() {
-    if (app.options.length > 0) {
-        app.options = [];
-        renderApp();
-    }
-};
 
-var onMakeDecision = function onMakeDecision() {
-    var randomNum = Math.floor(Math.random() * app.options.length);
-    var option = app.options[randomNum];
-    alert(option);
-};
-
-var renderApp = function renderApp() {
-    var template = React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'h1',
-            null,
-            app.title
-        ),
-        app.subtitle && React.createElement(
-            'p',
-            null,
-            app.subtitle
-        ),
-        React.createElement(
-            'p',
-            null,
-            app.options.length > 0 ? 'Here are your options' : 'No options'
-        ),
-        React.createElement(
-            'button',
-            { disabled: app.options.length === 0, onClick: onMakeDecision },
-            'What should I do?'
-        ),
-        React.createElement(
-            'button',
-            { onClick: clearArray },
-            'Remove All Options'
-        ),
-        React.createElement(
-            'ol',
-            null,
-            app.options.map(function (option, index) {
-                return React.createElement(
-                    'li',
-                    { key: index },
-                    'Item: ',
-                    option,
-                    ' '
-                );
-            })
-        ),
-        React.createElement(
-            'form',
-            { onSubmit: onFormSubmit },
-            React.createElement('input', { type: 'text', name: 'option' }),
-            React.createElement(
-                'button',
+    _createClass(Visibility, [{
+        key: 'toggle',
+        value: function toggle() {
+            this.setState(function (prevState) {
+                return {
+                    messageVisible: !prevState.messageVisible
+                };
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
                 null,
-                'Add Option'
-            )
-        )
-    );
+                React.createElement(
+                    'h1',
+                    null,
+                    'Vsibility Toggle'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.toggle },
+                    this.state.messageVisible ? 'Hide Details' : 'Show Details'
+                ),
+                this.state.messageVisible && React.createElement(
+                    'p',
+                    null,
+                    'I\'m not your guy, buddy!'
+                )
+            );
+        }
+    }]);
 
-    ReactDOM.render(template, appRoot);
-};
-renderApp();
+    return Visibility;
+}(React.Component);
+
+ReactDOM.render(React.createElement(Visibility, null), document.getElementById('app'));
+
+// UP above was a new challenge to redo the code below but transforming it into Component instead. 
+
+/*
+const app = document.getElementById('app'); 
+let visibility = false;
+
+const showDetails = () => {
+    visibility = !visibility; 
+    renderApp(); 
+}
+
+const renderApp = () => {
+    const myApp = (
+        <div>
+        <h1>Visibility Toggle</h1>
+        <button onClick={showDetails}>
+            {visibility ? 'Hide Details' : 'Show Details'}
+        </button>
+        {
+            visibility && <div><p>I'm not your guy, buddy!</p></div>
+        }
+        </div>
+    ); 
+    ReactDOM.render(myApp, 
+        app); 
+}; 
+    renderApp(); 
+*/
