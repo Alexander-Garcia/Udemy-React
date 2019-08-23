@@ -28,6 +28,12 @@ var clearArray = function clearArray() {
     }
 };
 
+var onMakeDecision = function onMakeDecision() {
+    var randomNum = Math.floor(Math.random() * app.options.length);
+    var option = app.options[randomNum];
+    alert(option);
+};
+
 var renderApp = function renderApp() {
     var template = React.createElement(
         'div',
@@ -48,9 +54,9 @@ var renderApp = function renderApp() {
             app.options.length > 0 ? 'Here are your options' : 'No options'
         ),
         React.createElement(
-            'p',
-            null,
-            app.options.length
+            'button',
+            { disabled: app.options.length === 0, onClick: onMakeDecision },
+            'What should I do?'
         ),
         React.createElement(
             'button',
@@ -60,16 +66,15 @@ var renderApp = function renderApp() {
         React.createElement(
             'ol',
             null,
-            React.createElement(
-                'li',
-                null,
-                'Item one'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'Item two'
-            )
+            app.options.map(function (option, index) {
+                return React.createElement(
+                    'li',
+                    { key: index },
+                    'Item: ',
+                    option,
+                    ' '
+                );
+            })
         ),
         React.createElement(
             'form',
@@ -86,7 +91,3 @@ var renderApp = function renderApp() {
     ReactDOM.render(template, appRoot);
 };
 renderApp();
-
-// Create a render function that renders the new JSX 
-// call it right away for initial render then call it after options array is added to
-// create a removeALl button. Clears list

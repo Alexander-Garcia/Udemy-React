@@ -7,6 +7,7 @@ const app = {
     options: []
 }; 
 
+
 const onFormSubmit = (e) => {
     //prevents page refresh and adding value to url
     e.preventDefault(); 
@@ -26,17 +27,26 @@ const clearArray = () => {
     }
 }; 
 
+const onMakeDecision = () => {
+    const randomNum = Math.floor(Math.random() * app.options.length); 
+    const option = app.options[randomNum]; 
+    alert(option); 
+}
+
 const renderApp = () => {
     const template = (
         <div>
         <h1>{app.title}</h1>
         {app.subtitle && <p>{app.subtitle}</p>}
         <p>{app.options.length >0 ? 'Here are your options' : 'No options'}</p>
-        <p>{app.options.length}</p>
+        <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do?</button>
         <button onClick={clearArray}>Remove All Options</button>
         <ol>
-            <li>Item one</li>
-            <li>Item two</li>
+        {
+             app.options.map((option, index) => {
+            return <li key={index}>Item: {option} </li> ;  
+        })
+        }
         </ol>
         <form onSubmit={onFormSubmit}>
             <input type="text" name="option"/>
@@ -48,10 +58,3 @@ const renderApp = () => {
     ReactDOM.render(template, appRoot); 
 }; 
 renderApp(); 
-
-
-
-
-// Create a render function that renders the new JSX 
-// call it right away for initial render then call it after options array is added to
-// create a removeALl button. Clears list 
