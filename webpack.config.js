@@ -1,6 +1,4 @@
 // entry --> output
-// module is technically Node.js 
-// go checkout webpack documentation --> webpack.js.org
 const path = require('path');
 
 module.exports = {
@@ -14,6 +12,12 @@ module.exports = {
             loader: 'babel-loader',
             test: /\.js$/,
             exclude: /node_modules/
+        }, {
+            test: /\.scss$/,
+            use: [
+                'style-loader',
+                'css-loader'
+            ]
         }]
     },
     devtool: 'cheap-module-eval-source-map',

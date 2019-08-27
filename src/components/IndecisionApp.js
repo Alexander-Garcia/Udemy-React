@@ -3,15 +3,12 @@ import AddOption from './AddOption.js';
 import Header from './Header.js'; 
 import Action from './Action.js'; 
 import Options from './Options.js';
-
-// pull the state out of constructor 
-// convert all 4 event handlers to class props arrow funcs
-// delete constructor completely 
-// put things in order -> start with class props and end with methods
+import OptionModal from './OptionModal'; 
 
 export default class IndecisionApp extends React.Component {
     state = {
-        options: []
+        options: [],
+        selectedOption: undefined
     }; 
 
     handleDeleteOptions =() => {
@@ -28,7 +25,10 @@ export default class IndecisionApp extends React.Component {
 
     handlePick = () => {
         const randomNum = Math.floor(Math.random() * this.state.options.length); 
-        alert(this.state.options[randomNum]); 
+        const choice = this.state.options[randomNum]; 
+        this.setState(() => ({
+            selectedOption: choice
+        })); 
      };
 
      handleAddOption = (option) => {
@@ -39,6 +39,12 @@ export default class IndecisionApp extends React.Component {
         } 
          this.setState((prevState) => ({options: prevState.options.concat(option)})); 
      };
+
+     handleModalClick = () => {
+        this.setState(() => ({
+            selectedOption: undefined
+        }));
+     }; 
     
     componentDidMount() {
         try {
@@ -52,16 +58,16 @@ export default class IndecisionApp extends React.Component {
                //Do nothing at all
         }
         
-    }
+    };
     componentDidUpdate(prevProps, prevState) {
         if(prevState.options.length !== this.state.options.length) {
             const json = JSON.stringify(this.state.options);
             localStorage.setItem('options', json); 
         }
-    }
+    };
     componentWillUnmount() {
         console.log('component will unmoutn'); 
-    }
+    };
 
    render() { 
        const subtitle = 'Im not your buddy, guy!'; 
@@ -80,6 +86,10 @@ export default class IndecisionApp extends React.Component {
            />
            <AddOption 
                handleAddOption={this.handleAddOption}
+           />
+           <OptionModal
+           selectedOption={this.state.selectedOption} 
+           handleModalClick={this.handleModalClick}
            />
            </div>
        ); 
