@@ -1,2 +1,9 @@
 # Udemy-React-Indecision-App
-This app was created based on a React course offered by Udemy. Clone the app on to your machine, open a terminal window, and use this command: yarn run dev-server 
+### How to run 
+---------------
+Clone the app and type `yarn run dev-server` in the root directory of the project.
+### Todo
+---------
+1.) Convert JavaScript files into TypeScript
+2.) Write tests with Jest
+3.) Add to personal website 
