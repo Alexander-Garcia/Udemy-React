@@ -1,5 +1,5 @@
 # Udemy-React-Indecision-App
-____________
+
 ### How to run 
 ---------------
 Clone the app and type `yarn run dev-server` in the root directory of the project.
