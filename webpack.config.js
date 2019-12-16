@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/app.js',
+    entry: './src/app.tsx',
     output: {
         path: path.join(__dirname, 'public', 'dist'), 
         filename: 'bundle.js'
@@ -11,6 +11,10 @@ module.exports = {
         rules: [{
             loader: 'babel-loader',
             test: /\.js$/,
+            exclude: /node_modules/
+        }, {
+            loader: 'awesome-typescript-loader',
+            test: /\.tsx?$/,
             exclude: /node_modules/
         }, {
             test: /\.s?css$/,
